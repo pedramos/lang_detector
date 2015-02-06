@@ -35,14 +35,21 @@ func main(){
     
     //#####################################
     //codigo para agrupar strings em grupos de 3
-    for i:=0;i<len(line_split);i++ {
-        trip[i]=line_split[0+i]+line_split[1+i]+line_split[2+i]
+    i:=0
+    j:=0
+    for i=0;i<len(trip);i++ {
+        trip[i]=line_split[0+j]+line_split[1+j]+line_split[2+j]
+        j=j+3
     }
-    
+    j=j-3
      
     if len(line_split)%3 != 0 {
-        //FALTAM COISAS
-        
+        last_size:=len(line_split)%3
+        i++
+        switch last_size:
+        case 1: trip[i] = line_split[j+1]+ " " + " "
+        case 2: trip[i] = line_split[j+1]+ line_split[j+2] + " "
+        case default : PrintLn("DEU MERDA")
     }
         
 }
