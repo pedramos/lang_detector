@@ -12,44 +12,26 @@ func main(){
     //reader é estrutura que le do standart input
     reader := bufio.NewReader(os.Stdin)
     line, err := reader.ReadString('\n')
+    line_split:=strings.Split(line,"")
+    fmt.Printf("%v",line)
     
     if err != nil {
         // You may check here if err == io.EOF
         fmt.Println("ERROR")
     }
-    
-    //####################################
-    //codigo para separar letras da string
-    line_split:=strings.Split(line,"")
-    fmt.Println(line_split[0]+line_split[1])
-    
-    
-    //####################################
-    //codigo para alucar slice com o tamanho certo
-    if len(line_split)%3==0{
-        trip:=make(string,len(line_split)/3)
-    } else {
-        trip:=make(string,(len(line_split)/3)+1)
-    }
-    
-    
-    //#####################################
-    //codigo para agrupar strings em grupos de 3
-    i:=0
-    j:=0
-    for i=0;i<len(trip);i++ {
-        trip[i]=line_split[0+j]+line_split[1+j]+line_split[2+j]
-        j=j+3
-    }
-    j=j-3
-     
-    if len(line_split)%3 != 0 {
-        last_size:=len(line_split)%3
-        i++
-        switch last_size:
-        case 1: trip[i] = line_split[j+1]+ " " + " "
-        case 2: trip[i] = line_split[j+1]+ line_split[j+2] + " "
-        case default : PrintLn("DEU MERDA")
-    }
+    trip:= make([]string,len(line_split)-3)
+    for i,_ := range line_split {
+       fmt.Printf("%v->%q\n",i,line_split[i])
+       if i==len(line_split)-3{
+           break
+       }
+    trip[i]=string(line_split[i])+string(line_split[i+1])+string(line_split[i+2])
+    fmt.Printf("%q %q %q\n",line_split[i],line_split[i+1],line_split[i+2])
+    fmt.Println(trip[i])
+    fmt.Println("______________")
         
+    }
+    
+    
+    
 }
