@@ -32,17 +32,24 @@ func get_trip () []string{
         //fmt.Printf("%q %q %q\n",line_split[i],line_split[i+1],line_split[i+2])
         fmt.Println(trip[i])
         //fmt.Println("______________")
-       
     }
-    
-    
     return trip    
 }
 
 func get_data(file string) map[string]float64{
     var data map[string]float64
     data=make(map[string]float64)
-    
+    f,err:=os.Open(file)
+    if err!=nil{
+        panic(err)
+    }
+    r:=bufio.NewReader(f)
+    buff:=make([]byte, 1024)
+    for {
+        n,err:=f.ReadLine(buff)
+        
+    }
+    return data
 }
 
 func main(){
