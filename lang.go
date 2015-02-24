@@ -43,10 +43,10 @@ func get_data(file string) map[string]float64{
     if err!=nil{
         panic(err)
     }
-    r:=bufio.NewReader(f)
-    buff:=make([]byte, 1024)
-    for {
-        n,err:=f.ReadLine(buff)
+    reader:=bufio.NewReader(f)
+    scanner:=bufio.NewScanner(reader)
+    for scanner.Scan() {
+        scanner.Text()
         
     }
     return data
