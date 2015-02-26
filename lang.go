@@ -46,14 +46,14 @@ func get_data(file string) map[string]float64{
     }
     reader:=bufio.NewReader(f)
     scanner:=bufio.NewScanner(reader)
-    total_coutner:=0
+    total_counter:=0.0
     var temp []string
     for scanner.Scan() {
         temp=strings.Split(scanner.Text()," ")
-        data[temp[0]]=strconv.Atoi(temp[1])
-        total_counter+=strconv.Atoi(temp[1])
+        data[temp[0]],_=strconv.ParseFloat(temp[1],64)
+        total_counter = data[temp[0]] + total_counter
     }
-    for trigram,_ range data{
+    for trigram := range data{
         data[trigram]=data[trigram]/total_counter
     }
     return data
@@ -61,6 +61,6 @@ func get_data(file string) map[string]float64{
 
 func main(){
     trip:=get_trip()
-    
+    _=trip
     
 }
