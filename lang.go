@@ -4,6 +4,7 @@ import "fmt"
 import "bufio"
 import "os"
 import "strings"
+import "strconv"
 
 
 
@@ -45,9 +46,15 @@ func get_data(file string) map[string]float64{
     }
     reader:=bufio.NewReader(f)
     scanner:=bufio.NewScanner(reader)
+    total_coutner:=0
+    var temp []byte
     for scanner.Scan() {
-        scanner.Text()
-        
+        temp=strings.Split(scanner.Text()," ")
+        data[temp[0]]=strconv.Atoi(temp[1])
+        total_counter+=strconv.Atoi(temp[1])
+    }
+    for trigram,_ range data{
+        data[trigram]=data[trigram]/total_counter
     }
     return data
 }
