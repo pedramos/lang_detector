@@ -47,7 +47,7 @@ func get_data(file string) map[string]float64{
     reader:=bufio.NewReader(f)
     scanner:=bufio.NewScanner(reader)
     total_coutner:=0
-    var temp []byte
+    var temp []string
     for scanner.Scan() {
         temp=strings.Split(scanner.Text()," ")
         data[temp[0]]=strconv.Atoi(temp[1])
