@@ -44,12 +44,14 @@ func get_data(file string) map[string]float64{
     if err!=nil{
         panic(err)
     }
-    reader:=bufio.NewReader(f)
-    scanner:=bufio.NewScanner(reader)
+    //reader:=bufio.NewReader(f)
+    scanner:=bufio.NewScanner(f)
     total_counter:=0.0
     var temp []string
     for scanner.Scan() {
-        temp=strings.Split(scanner.Text()," ")
+        a:=scanner.Text()
+        _=a
+        temp=strings.Split(scanner.Text(),"\t")
         data[temp[0]],_=strconv.ParseFloat(temp[1],64)
         total_counter = data[temp[0]] + total_counter
     }
@@ -62,5 +64,7 @@ func get_data(file string) map[string]float64{
 func main(){
     trip:=get_trip()
     _=trip
-    
+    PT_data:="/home/rami/coolstuff/go/lang_detector/pt_trigram_count_pruned_100000.tsv"
+    PT:=get_data(PT_data)
+    _=PT
 }
