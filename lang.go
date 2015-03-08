@@ -31,7 +31,7 @@ func get_trip () []string{
         }
         trip[i]=string(line_split[i])+string(line_split[i+1])+string(line_split[i+2])
         //fmt.Printf("%q %q %q\n",line_split[i],line_split[i+1],line_split[i+2])
-        fmt.Println(trip[i])
+        //fmt.Println(trip[i])
         //fmt.Println("______________")
     }
     return trip    
@@ -44,13 +44,10 @@ func get_data(file string) map[string]float64{
     if err!=nil{
         panic(err)
     }
-    //reader:=bufio.NewReader(f)
     scanner:=bufio.NewScanner(f)
     total_counter:=0.0
     var temp []string
     for scanner.Scan() {
-        a:=scanner.Text()
-        _=a
         temp=strings.Split(scanner.Text(),"\t")
         data[temp[0]],_=strconv.ParseFloat(temp[1],64)
         total_counter = data[temp[0]] + total_counter
@@ -62,9 +59,38 @@ func get_data(file string) map[string]float64{
 }
 
 func main(){
-    trip:=get_trip()
-    _=trip
-    PT_data:="/home/rami/coolstuff/go/lang_detector/pt_trigram_count_pruned_100000.tsv"
+    
+    
+    PT_data:="./pt_trigram_count_pruned_100000.tsv"
     PT:=get_data(PT_data)
-    _=PT
+    FR_data:="./fr_trigram_count_pruned_100000.tsv"
+    FR:=get_data(FR_data)
+    ES_data:="./es_trigram_count_pruned_100000.tsv"
+    ES:=get_data(ES_data)
+    var ES_temp, PT_temp, FR_temp float64
+    for {
+        trip:=get_trip()
+        for i := range trip {
+            if ES_temp==0.0 && PT_temp==0.0 && FR_temp==0.0 {
+                ES_temp=ES[trip[i]]
+                PT_temp=PT[trip[i]]
+                FR_temp=FR[trip[i]]
+            } else {
+                ES_temp=ES_temp*ES[trip[i]]
+                FR_temp=FR_temp*FR[trip[i]]
+                PT_temp=PT_temp*PT[trip[i]]
+            }
+                    
+        }
+        if ES_temp > FR_temp && ES_temp > PT_temp {
+            fmt.Println("Espanhol")
+        } else if PT_temp > FR_temp && PT_temp > ES_temp {
+            fmt.Println("Portugues")
+        } else if FR_temp > ES_temp && FR_temp > PT_temp {
+            fmt.Println("Fracês")
+        }
+        ES_temp=0.0
+        PT_temp=0.0
+        FR_temp=0.0
+    }
 }
