@@ -1,5 +1,5 @@
 Language detector written in GO [just for fun]
 
-Still incomplete
+Working for PT, FR, and ES
 
 
